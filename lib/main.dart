@@ -36,16 +36,28 @@ class ModuleLauncherScreen extends StatefulWidget {
   static const int activeModuleUntil =
       2; // Saat ini: Minggu ke-2 (Modul 01 & 02 terbuka)
 
-  // Token akses kelas untuk membuka modul saat praktikum di lab
-  static const Map<int, String> modulePasscodes = {
-    2: 'TRPL-M02',
-    3: 'M03-7da0c299d0f715d7',
-    4: 'M04-95555b7e59e15b4c',
-    5: 'M05-8024ea08ef7df2df',
-    6: 'M06-dae86269f99a840c',
-    7: 'M07-ee1993ff3d206c63',
+  // Token akses kelas untuk membuka modul saat praktikum di lab atau izin khusus
+  static const Map<int, List<String>> modulePasscodes = {
+    2: ['TRPL-M02'],
+    3: ['TRPL-M03', 'M03-7da0c299d0f715d7'],
+    4: ['TRPL-M04', 'M04-95555b7e59e15b4c'],
+    5: ['TRPL-M05', 'M05-8024ea08ef7df2df'],
+    6: ['TRPL-M06', 'M06-dae86269f99a840c'],
+    7: ['TRPL-M07', 'M07-ee1993ff3d206c63'],
+    8: ['TRPL-UTS', 'UTS-2026'],
+    9: ['TRPL-M09', 'M09-AI'],
+    10: ['TRPL-M10', 'M10-GEMINI'],
+    11: ['TRPL-M11', 'M11-PERF'],
+    12: ['TRPL-M12', 'M12-TEST'],
+    13: ['TRPL-M13', 'M13-CICD'],
+    14: ['TRPL-M14', 'M14-DEPLOY'],
+    15: ['TRPL-M15', 'M15-SECURE'],
+    16: ['TRPL-UAS', 'UAS-2026'],
   };
-  static const String masterPasscode = 'DOSEN-a9c9a5867f5ab9df669d9a57';
+  static const List<String> masterPasscodes = [
+    'POLIWANGI2026',
+    'DOSEN-a9c9a5867f5ab9df669d9a57'
+  ];
 
   @override
   State<ModuleLauncherScreen> createState() => _ModuleLauncherScreenState();
@@ -120,7 +132,7 @@ class _ModuleLauncherScreenState extends State<ModuleLauncherScreen> {
               final input = controller.text.trim().toUpperCase();
 
               // 1. Cek Master Passcode (Membuka Seluruh 16 Modul untuk Dosen)
-              if (input == ModuleLauncherScreen.masterPasscode) {
+              if (ModuleLauncherScreen.masterPasscodes.contains(input)) {
                 setState(() {
                   _unlockedModules.addAll(List.generate(16, (i) => i + 1));
                 });
@@ -138,9 +150,9 @@ class _ModuleLauncherScreenState extends State<ModuleLauncherScreen> {
 
               // 2. Cek Token Spesifik Modul
               if (isSingleModule) {
-                final validPasscode =
-                    ModuleLauncherScreen.modulePasscodes[targetModule];
-                if (input == validPasscode) {
+                final validPasscodes =
+                    ModuleLauncherScreen.modulePasscodes[targetModule] ?? [];
+                if (validPasscodes.contains(input)) {
                   setState(() {
                     _unlockedModules.add(targetModule);
                   });
@@ -158,7 +170,7 @@ class _ModuleLauncherScreenState extends State<ModuleLauncherScreen> {
                 // Cek jika mencocokkan salah satu token modul
                 for (final entry
                     in ModuleLauncherScreen.modulePasscodes.entries) {
-                  if (input == entry.value) {
+                  if (entry.value.contains(input)) {
                     setState(() {
                       _unlockedModules.add(entry.key);
                     });
