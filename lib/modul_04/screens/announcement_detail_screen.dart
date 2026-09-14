@@ -25,7 +25,8 @@ class AnnouncementDetailScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
                   decoration: BoxDecoration(
                     color: const Color(0xFFE0F2FE),
                     borderRadius: BorderRadius.circular(8),
@@ -41,11 +42,13 @@ class AnnouncementDetailScreen extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    const Icon(Icons.calendar_today, size: 14, color: Color(0xFF64748B)),
+                    const Icon(Icons.calendar_today,
+                        size: 14, color: Color(0xFF64748B)),
                     const SizedBox(width: 6),
                     Text(
                       announcement.date,
-                      style: const TextStyle(color: Color(0xFF64748B), fontSize: 13),
+                      style: const TextStyle(
+                          color: Color(0xFF64748B), fontSize: 13),
                     ),
                   ],
                 ),
@@ -87,7 +90,8 @@ class AnnouncementDetailScreen extends StatelessWidget {
                     ),
                     Text(
                       'Dibaca ${announcement.readCount} kali',
-                      style: const TextStyle(fontSize: 11, color: Color(0xFF94A3B8)),
+                      style: const TextStyle(
+                          fontSize: 11, color: Color(0xFF94A3B8)),
                     ),
                   ],
                 ),

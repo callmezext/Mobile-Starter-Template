@@ -23,7 +23,9 @@ class KrsListScreen extends ConsumerWidget {
             margin: const EdgeInsets.only(right: 16),
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
             decoration: BoxDecoration(
-              color: totalSks > 24 ? Colors.red : Colors.white.withOpacity(0.2),
+              color: totalSks >= 21
+                  ? Colors.orange.withValues(alpha: 0.35)
+                  : Colors.white.withValues(alpha: 0.2),
               borderRadius: BorderRadius.circular(12),
             ),
             alignment: Alignment.center,
@@ -39,11 +41,15 @@ class KrsListScreen extends ConsumerWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Icon(Icons.school_outlined, size: 64, color: Color(0xFF94A3B8)),
+                  const Icon(Icons.school_outlined,
+                      size: 64, color: Color(0xFF94A3B8)),
                   const SizedBox(height: 16),
                   const Text(
                     'Belum Ada Mata Kuliah Terpilih',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xFF334155)),
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF334155)),
                   ),
                   const SizedBox(height: 8),
                   const Text(
@@ -66,13 +72,16 @@ class KrsListScreen extends ConsumerWidget {
                 final course = krsList[index];
                 return Card(
                   margin: const EdgeInsets.only(bottom: 12),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12)),
                   child: ListTile(
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    contentPadding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     leading: CircleAvatar(
                       backgroundColor: const Color(0xFFE0F2FE),
                       foregroundColor: const Color(0xFF0284C7),
-                      child: Text('${course.sks}', style: const TextStyle(fontWeight: FontWeight.bold)),
+                      child: Text('${course.sks}',
+                          style: const TextStyle(fontWeight: FontWeight.bold)),
                     ),
                     title: Text(
                       course.name,
@@ -80,13 +89,14 @@ class KrsListScreen extends ConsumerWidget {
                     ),
                     subtitle: Text('${course.code} • ${course.lecturer}'),
                     trailing: IconButton(
-                      icon: const Icon(Icons.delete_outline, color: Colors.redAccent),
+                      icon: const Icon(Icons.delete_outline,
+                          color: Colors.redAccent),
                       onPressed: () {
                         _showDeleteConfirmDialog(context, ref, course);
                       },
                     ),
                     onTap: () {
-                      context.push('/modul-03/detail/${course.code}', extra: course);
+                      context.push('/modul-03/detail/${course.code}');
                     },
                   ),
                 );
@@ -102,12 +112,14 @@ class KrsListScreen extends ConsumerWidget {
     );
   }
 
-  void _showDeleteConfirmDialog(BuildContext context, WidgetRef ref, KrsCourse course) {
+  void _showDeleteConfirmDialog(
+      BuildContext context, WidgetRef ref, KrsCourse course) {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
         title: const Text('Hapus Mata Kuliah?'),
-        content: Text('Yakin ingin membatalkan pengambilan "${course.name}" (${course.sks} SKS)?'),
+        content: Text(
+            'Yakin ingin membatalkan pengambilan "${course.name}" (${course.sks} SKS)?'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),

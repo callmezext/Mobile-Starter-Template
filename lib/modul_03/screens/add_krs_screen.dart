@@ -39,12 +39,14 @@ class _AddKrsScreenState extends ConsumerState<AddKrsScreen> {
         description: _descController.text.trim(),
       );
 
-      final success = ref.read(krsProvider.notifier).tambahMataKuliah(newCourse);
+      final success =
+          ref.read(krsProvider.notifier).tambahMataKuliah(newCourse);
 
       if (success) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Mata kuliah "${newCourse.name}" berhasil ditambahkan ke KRS.'),
+            content: Text(
+                'Mata kuliah "${newCourse.name}" berhasil ditambahkan ke KRS.'),
             backgroundColor: const Color(0xFF059669),
             behavior: SnackBarBehavior.floating,
           ),
@@ -53,7 +55,8 @@ class _AddKrsScreenState extends ConsumerState<AddKrsScreen> {
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Gagal: Kode MK sudah terdaftar atau total SKS melebihi 24!'),
+            content: Text(
+                'Gagal: Kode MK sudah terdaftar atau total SKS melebihi 24!'),
             backgroundColor: Colors.redAccent,
             behavior: SnackBarBehavior.floating,
           ),
@@ -181,7 +184,8 @@ class _AddKrsScreenState extends ConsumerState<AddKrsScreen> {
                   padding: const EdgeInsets.symmetric(vertical: 14),
                 ),
                 icon: const Icon(Icons.save),
-                label: const Text('Simpan ke Rencana Studi', style: TextStyle(fontSize: 16)),
+                label: const Text('Simpan ke Rencana Studi',
+                    style: TextStyle(fontSize: 16)),
               ),
             ],
           ),

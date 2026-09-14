@@ -13,7 +13,8 @@ void main() {
       expect(sample.first.sks, greaterThan(0));
     });
 
-    testWidgets('2. CourseCard merender nama mata kuliah, dosen, dan badge SKS', (WidgetTester tester) async {
+    testWidgets('2. CourseCard merender nama mata kuliah, dosen, dan badge SKS',
+        (WidgetTester tester) async {
       const course = Course(
         code: 'TEST101',
         name: 'Algoritma Pemrograman',
@@ -35,12 +36,15 @@ void main() {
       expect(find.byType(LinearProgressIndicator), findsOneWidget);
     });
 
-    testWidgets('3. AcademicDashboardScreen adaptif: 1 kolom di mobile (<600dp), 2 kolom di tablet (>=600dp)', (WidgetTester tester) async {
+    testWidgets(
+        '3. AcademicDashboardScreen adaptif: 1 kolom di mobile (<600dp), 2 kolom di tablet (>=600dp)',
+        (WidgetTester tester) async {
       // Test mobile size (400 x 800)
       tester.view.physicalSize = const Size(400, 800);
       tester.view.devicePixelRatio = 1.0;
 
-      await tester.pumpWidget(const MaterialApp(home: AcademicDashboardScreen()));
+      await tester
+          .pumpWidget(const MaterialApp(home: AcademicDashboardScreen()));
       await tester.pumpAndSettle();
 
       expect(find.byType(ListView), findsOneWidget);
@@ -50,7 +54,8 @@ void main() {
       tester.view.physicalSize = const Size(800, 600);
       tester.view.devicePixelRatio = 1.0;
 
-      await tester.pumpWidget(const MaterialApp(home: AcademicDashboardScreen()));
+      await tester
+          .pumpWidget(const MaterialApp(home: AcademicDashboardScreen()));
       await tester.pumpAndSettle();
 
       expect(find.byType(GridView), findsOneWidget);

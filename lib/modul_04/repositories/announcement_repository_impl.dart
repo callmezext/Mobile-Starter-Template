@@ -19,7 +19,10 @@ class AnnouncementRepositoryImpl implements AnnouncementRepository {
         return list;
       }
 
-      return list.where((item) => item.category.toLowerCase() == category.toLowerCase()).toList();
+      return list
+          .where(
+              (item) => item.category.toLowerCase() == category.toLowerCase())
+          .toList();
     } on DioException catch (e) {
       // Menerjemahkan DioException ke pesan error yang mudah dipahami mahasiswa
       String errorMessage;
@@ -27,16 +30,20 @@ class AnnouncementRepositoryImpl implements AnnouncementRepository {
         case DioExceptionType.connectionTimeout:
         case DioExceptionType.sendTimeout:
         case DioExceptionType.receiveTimeout:
-          errorMessage = 'Koneksi ke server timeout. Periksa sambungan internet Anda.';
+          errorMessage =
+              'Koneksi ke server timeout. Periksa sambungan internet Anda.';
           break;
         case DioExceptionType.connectionError:
-          errorMessage = 'Gagal terhubung ke server. Periksa koneksi data atau Wi-Fi Anda.';
+          errorMessage =
+              'Gagal terhubung ke server. Periksa koneksi data atau Wi-Fi Anda.';
           break;
         case DioExceptionType.badResponse:
-          errorMessage = 'Server merespons dengan kesalahan (${e.response?.statusCode}).';
+          errorMessage =
+              'Server merespons dengan kesalahan (${e.response?.statusCode}).';
           break;
         default:
-          errorMessage = 'Terjadi kendala jaringan: ${e.message ?? 'Kesalahan tidak diketahui'}';
+          errorMessage =
+              'Terjadi kendala jaringan: ${e.message ?? 'Kesalahan tidak diketahui'}';
       }
       throw Exception(errorMessage);
     } catch (e) {

@@ -21,7 +21,9 @@ class Announcement {
   // Factory constructor untuk deserialisasi data JSON dari REST API
   factory Announcement.fromJson(Map<String, dynamic> json) {
     return Announcement(
-      id: json['id'] is int ? json['id'] as int : int.tryParse(json['id'].toString()) ?? 0,
+      id: json['id'] is int
+          ? json['id'] as int
+          : int.tryParse(json['id'].toString()) ?? 0,
       title: json['title'] as String? ?? 'Tanpa Judul',
       content: json['content'] as String? ?? json['body'] as String? ?? '',
       author: json['author'] as String? ?? 'Admin Jurusan',
@@ -50,7 +52,8 @@ class Announcement {
       Announcement(
         id: 1,
         title: 'Jadwal Pengisian KRS Semester Ganjil 2026/2027',
-        content: 'Pengisian Kartu Rencana Studi (KRS) untuk mahasiswa tingkat 3 Sarjana Terapan TRPL dimulai tanggal 1 hingga 7 September 2026. Pastikan telah menyelesaikan bimbingan dosen wali.',
+        content:
+            'Pengisian Kartu Rencana Studi (KRS) untuk mahasiswa tingkat 3 Sarjana Terapan TRPL dimulai tanggal 1 hingga 7 September 2026. Pastikan telah menyelesaikan bimbingan dosen wali.',
         author: 'Bagian Akademik Poliwangi',
         category: 'Akademik',
         date: '2026-09-01',
@@ -59,7 +62,8 @@ class Announcement {
       Announcement(
         id: 2,
         title: 'Pendaftaran Program Magang Industri Bersertifikat Batch 7',
-        content: 'Kesempatan magang 6 bulan di perusahaan teknologi mitra jurusan. Mahasiswa semester 5 yang memenuhi syarat IPK minimal 3.00 dapat mengunggah portofolio GitHub.',
+        content:
+            'Kesempatan magang 6 bulan di perusahaan teknologi mitra jurusan. Mahasiswa semester 5 yang memenuhi syarat IPK minimal 3.00 dapat mengunggah portofolio GitHub.',
         author: 'Koordinator Magang TRPL',
         category: 'Kegiatan',
         date: '2026-09-02',
@@ -68,7 +72,8 @@ class Announcement {
       Announcement(
         id: 3,
         title: 'Sosialisasi Beasiswa Unggulan & Bantuan UKT 2026',
-        content: 'Informasi persyaratan beasiswa prestasi akademik dan bantuan dana pendidikan semester 5. Berkas administrasi diserahkan ke sekretariat jurusan sebelum 15 September.',
+        content:
+            'Informasi persyaratan beasiswa prestasi akademik dan bantuan dana pendidikan semester 5. Berkas administrasi diserahkan ke sekretariat jurusan sebelum 15 September.',
         author: 'Kemahasiswaan Poliwangi',
         category: 'Beasiswa',
         date: '2026-08-28',
@@ -77,7 +82,8 @@ class Announcement {
       Announcement(
         id: 4,
         title: 'Tim Mahasiswa TRPL Juara 1 Hackathon Nasional Mobile Dev',
-        content: 'Selamat kepada tim mahasiswa TRPL angkatan 2024 yang berhasil meraih peringkat pertama dalam kompetisi nasional pengembangan aplikasi berbasis Flutter.',
+        content:
+            'Selamat kepada tim mahasiswa TRPL angkatan 2024 yang berhasil meraih peringkat pertama dalam kompetisi nasional pengembangan aplikasi berbasis Flutter.',
         author: 'Himpunan Mahasiswa TI',
         category: 'Prestasi',
         date: '2026-08-25',

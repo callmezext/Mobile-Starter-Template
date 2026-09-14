@@ -8,12 +8,18 @@ import 'package:poliwangi_mobile_starter/modul_03/screens/add_krs_screen.dart';
 import 'package:poliwangi_mobile_starter/modul_03/screens/course_detail_screen.dart';
 
 void main() {
-  group('Modul 03 Autograding: Navigation & State Management (Riverpod + GoRouter)', () {
-    test('1. KrsNotifier mengelola state secara immutable, mencegah duplikasi & menghitung SKS', () {
-      final notifier = KrsNotifier();
+  group(
+      'Modul 03 Autograding: Navigation & State Management (Riverpod + GoRouter)',
+      () {
+    test(
+        '1. KrsNotifier mengelola state secara immutable, mencegah duplikasi & menghitung SKS',
+        () {
+      final container = ProviderContainer();
+      addTearDown(container.dispose);
+      final notifier = container.read(krsProvider.notifier);
 
       // State awal
-      expect(notifier.state.length, greaterThanOrEqualTo(3));
+      expect(container.read(krsProvider).length, greaterThanOrEqualTo(3));
       final initialSks = notifier.totalSks;
       expect(initialSks, greaterThan(0));
 
@@ -26,7 +32,8 @@ void main() {
       );
       final success = notifier.tambahMataKuliah(newCourse);
       expect(success, isTrue);
-      expect(notifier.state.any((c) => c.code == 'TEST901'), isTrue);
+      expect(
+          container.read(krsProvider).any((c) => c.code == 'TEST901'), isTrue);
       expect(notifier.totalSks, equals(initialSks + 3));
 
       // Coba tambah kode duplikat (harus ditolak)
@@ -35,11 +42,14 @@ void main() {
 
       // Hapus mata kuliah
       notifier.hapusMataKuliah('TEST901');
-      expect(notifier.state.any((c) => c.code == 'TEST901'), isFalse);
+      expect(
+          container.read(krsProvider).any((c) => c.code == 'TEST901'), isFalse);
       expect(notifier.totalSks, equals(initialSks));
     });
 
-    testWidgets('2. KrsListScreen merender judul, badge SKS, dan daftar mata kuliah dengan ProviderScope', (WidgetTester tester) async {
+    testWidgets(
+        '2. KrsListScreen merender judul, badge SKS, dan daftar mata kuliah dengan ProviderScope',
+        (WidgetTester tester) async {
       await tester.pumpWidget(
         const ProviderScope(
           child: MaterialApp(
@@ -57,7 +67,9 @@ void main() {
       expect(find.byType(FloatingActionButton), findsOneWidget);
     });
 
-    testWidgets('3. AddKrsScreen memvalidasi input wajib pada form menggunakan GlobalKey', (WidgetTester tester) async {
+    testWidgets(
+        '3. AddKrsScreen memvalidasi input wajib pada form menggunakan GlobalKey',
+        (WidgetTester tester) async {
       await tester.pumpWidget(
         const ProviderScope(
           child: MaterialApp(
@@ -81,20 +93,13 @@ void main() {
       expect(find.text('Nama mata kuliah wajib diisi'), findsOneWidget);
     });
 
-    testWidgets('4. CourseDetailScreen mendukung simulasi Error State & Tombol Coba Lagi', (WidgetTester tester) async {
-      const course = KrsCourse(
-        code: 'TRPL501',
-        name: 'Pemrograman Perangkat Bergerak',
-        lecturer: 'Sepyan Purnama Kristanto, M.Kom.',
-        sks: 3,
-        description: 'Silabus Flutter dan Riverpod.',
-      );
-
+    testWidgets(
+        '4. CourseDetailScreen mendukung simulasi Error State & Tombol Coba Lagi',
+        (WidgetTester tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
-          home: CourseDetailScreen(
-            courseCode: 'TRPL501',
-            course: course,
+        const ProviderScope(
+          child: MaterialApp(
+            home: CourseDetailScreen(courseCode: 'TRPL501'),
           ),
         ),
       );

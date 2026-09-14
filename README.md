@@ -10,7 +10,7 @@ Panduan interaktif lengkap: [Portal Codelabs TRPL Poliwangi](https://codelabs-po
 
 > [!IMPORTANT]
 > **Wajib Mengganti Data di Bawah Ini!**  
-> Autograding CI/CD akan memeriksa apakah nilai *placeholder* di bawah ini telah diganti dengan Nama dan NIM Anda yang sebenarnya. Jika belum diganti, pengujian `verify_documentation_test.dart` akan gagal.
+> Lengkapi data ini sebelum mengumpulkan tautan repositori dan bukti praktik. Pengujian `verify_documentation_test.dart` membantu memeriksa placeholder secara lokal; dosen tetap memverifikasi identitas serta bukti kerja pada repositori.
 
 | Informasi | Data Mahasiswa |
 |---|---|
@@ -23,21 +23,19 @@ Panduan interaktif lengkap: [Portal Codelabs TRPL Poliwangi](https://codelabs-po
 
 ## 2. Peta Kemajuan Modul Praktikum
 
-Aplikasi ini menggunakan **Sistem Kontrol Akses Modul Terpusat (Smart Gating)** di file `lib/main.dart` agar mahasiswa belajar selaras dengan ritme materi dosen di kelas:
+Aplikasi starter memuat contoh layar setiap modul. Gunakan tabel ini sebagai peta kerja dan jalankan self-test lokal sebelum mengumpulkan repositori:
 
-| Modul | Topik & Arsitektur | Status Akses | Perintah Self-Test Lokal | Bobot CI |
+| Modul | Topik & Arsitektur | Perintah Self-Test Lokal |
 |:---:|---|:---:|---|:---:|
-| **#01** | Mobile Ecosystem, Toolchain & Profile App | `⚡ Aktif` | `flutter test test/modul_01_test.dart` | 20 Pts |
-| **#02** | Declarative UI, BoxConstraints & Responsive Dashboard | `🔒 Terkunci (W02)` | `flutter test test/modul_02_test.dart` | 20 Pts |
-| **#03** | Navigation (GoRouter), Riverpod & 4-State KRS App | `🔒 Terkunci (W03)` | `flutter test test/modul_03_test.dart` | 20 Pts |
-| **#04** | Networking, REST API Dio & Repository Pattern | `🔒 Terkunci (W04)` | `flutter test test/modul_04_test.dart` | 15 Pts |
-| **Dok** | Verifikasi Identitas Asli Mahasiswa di README | `Wajib` | `flutter test test/verify_documentation_test.dart` | 10 Pts |
-| **Lint** | Dart Code Formatting & Static Analysis | `Wajib` | `flutter analyze --no-fatal-infos` | 15 Pts |
-| **Total** | **Skor Maksimal Evaluasi Autograding** | — | `flutter test` | **100 Pts** |
+| **#01** | Mobile Ecosystem, Toolchain & Profile App | `flutter test test/modul_01_test.dart` |
+| **#02** | Declarative UI, BoxConstraints & Responsive Dashboard | `flutter test test/modul_02_test.dart` |
+| **#03** | Navigation (go_router), Riverpod & 4-State KRS App | `flutter test test/modul_03_test.dart` |
+| **#04** | Networking, REST API Dio & Repository Pattern | `flutter test test/modul_04_test.dart` |
+| **Dok** | Verifikasi identitas dan laporan | `flutter test test/verify_documentation_test.dart` |
+| **Semua** | Analisis statis dan seluruh test | `flutter analyze && flutter test` |
 
 > [!NOTE]
-> **Membuka Modul Terkunci saat di Laboratorium:**  
-> Jika Anda sedang berada di sesi perkuliahan laboratorium dan dosen mengumumkan pembukaan modul, klik kartu modul yang terkunci di aplikasi lalu masukkan **Token Akses Kelas** yang dibagikan oleh dosen (misal: `TRPL-M02`, `TRPL-M03`, `TRPL-M04`, atau master passcode `POLIWANGI2026`).
+> Penguncian tampilan pada starter hanya alat bantu alur belajar di kelas, bukan mekanisme keamanan atau penilaian. Gunakan instruksi pertemuan dan bukti commit/README sebagai dasar pengumpulan.
 
 ---
 
@@ -53,7 +51,7 @@ flutter run
 ```
 
 ### B. Pengujian Mandiri Sebelum Push (Self-Testing)
-Sebelum melakukan `git push` ke repositori tugas GitHub Anda, pastikan seluruh pengujian lulus di mesin lokal:
+Sebelum mengumpulkan tautan repositori tugas, pastikan seluruh pengujian lulus di mesin lokal:
 
 ```bash
 # 1. Periksa aturan kode linter Dart

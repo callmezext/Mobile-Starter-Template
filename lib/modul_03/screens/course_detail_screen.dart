@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/krs_course.dart';
+import '../providers/krs_provider.dart';
 
-class CourseDetailScreen extends StatefulWidget {
+class CourseDetailScreen extends ConsumerStatefulWidget {
   final String courseCode;
-  final KrsCourse? course;
 
   const CourseDetailScreen({
     super.key,
     required this.courseCode,
-    this.course,
   });
 
   @override
-  State<CourseDetailScreen> createState() => _CourseDetailScreenState();
+  ConsumerState<CourseDetailScreen> createState() => _CourseDetailScreenState();
 }
 
-class _CourseDetailScreenState extends State<CourseDetailScreen> {
+class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
   bool _isLoading = false;
   bool _hasError = false;
 
@@ -64,6 +64,14 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
     );
   }
 
+  KrsCourse? _courseFromState() {
+    final courses = ref.watch(krsProvider);
+    for (final course in courses) {
+      if (course.code == widget.courseCode) return course;
+    }
+    return null;
+  }
+
   Widget _buildBody() {
     // 1. STATE 1: LOADING
     if (_isLoading) {
@@ -73,7 +81,8 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
           children: [
             CircularProgressIndicator(),
             SizedBox(height: 16),
-            Text('Memuat rincian silabus mata kuliah...', style: TextStyle(color: Color(0xFF64748B))),
+            Text('Memuat rincian silabus mata kuliah...',
+                style: TextStyle(color: Color(0xFF64748B))),
           ],
         ),
       );
@@ -87,11 +96,15 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Icon(Icons.error_outline_rounded, size: 64, color: Colors.redAccent),
+              const Icon(Icons.error_outline_rounded,
+                  size: 64, color: Colors.redAccent),
               const SizedBox(height: 16),
               const Text(
                 'Gagal Mengambil Data Silabus',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xFF0F172A)),
+                style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF0F172A)),
               ),
               const SizedBox(height: 8),
               const Text(
@@ -102,7 +115,8 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
               const SizedBox(height: 20),
               FilledButton.icon(
                 onPressed: _simulasiMuatUlang,
-                style: FilledButton.styleFrom(backgroundColor: const Color(0xFF0284C7)),
+                style: FilledButton.styleFrom(
+                    backgroundColor: const Color(0xFF0284C7)),
                 icon: const Icon(Icons.refresh),
                 label: const Text('Coba Lagi (Retry)'),
               ),
@@ -113,18 +127,21 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
     }
 
     // 3. STATE 3: EMPTY (Data tidak ditemukan)
-    if (widget.course == null) {
+    final course = _courseFromState();
+    if (course == null) {
       return Center(
         child: Padding(
           padding: const EdgeInsets.all(24.0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Icon(Icons.search_off_rounded, size: 64, color: Color(0xFF94A3B8)),
+              const Icon(Icons.search_off_rounded,
+                  size: 64, color: Color(0xFF94A3B8)),
               const SizedBox(height: 16),
               Text(
                 'Mata Kuliah "${widget.courseCode}" Tidak Ditemukan',
-                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 12),
               OutlinedButton(
@@ -138,14 +155,14 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
     }
 
     // 4. STATE 4: SUCCESS (Tampilkan Data Lengkap)
-    final course = widget.course!;
     return SingleChildScrollView(
       padding: const EdgeInsets.all(20.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Card(
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
             elevation: 2,
             child: Padding(
               padding: const EdgeInsets.all(20.0),
@@ -156,7 +173,8 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 4),
                         decoration: BoxDecoration(
                           color: const Color(0xFFE0F2FE),
                           borderRadius: BorderRadius.circular(8),
@@ -172,23 +190,28 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
                       ),
                       Text(
                         '${course.sks} SKS',
-                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 14),
                       ),
                     ],
                   ),
                   const SizedBox(height: 12),
                   Text(
                     course.name,
-                    style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8),
                   Row(
                     children: [
-                      const Icon(Icons.person, size: 18, color: Color(0xFF64748B)),
+                      const Icon(Icons.person,
+                          size: 18, color: Color(0xFF64748B)),
                       const SizedBox(width: 8),
                       Text(
                         course.lecturer,
-                        style: const TextStyle(color: Color(0xFF475569), fontWeight: FontWeight.w500),
+                        style: const TextStyle(
+                            color: Color(0xFF475569),
+                            fontWeight: FontWeight.w500),
                       ),
                     ],
                   ),
@@ -199,14 +222,18 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
           const SizedBox(height: 20),
           const Text(
             'Deskripsi & Capaian Pembelajaran',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFF0F172A)),
+            style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF0F172A)),
           ),
           const SizedBox(height: 8),
           Text(
             course.description.isNotEmpty
                 ? course.description
                 : 'Belum ada deskripsi silabus untuk mata kuliah ini.',
-            style: const TextStyle(fontSize: 14, color: Color(0xFF475569), height: 1.5),
+            style: const TextStyle(
+                fontSize: 14, color: Color(0xFF475569), height: 1.5),
           ),
         ],
       ),

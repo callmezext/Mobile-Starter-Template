@@ -11,7 +11,13 @@ class AnnouncementListScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final asyncAnnouncements = ref.watch(announcementsProvider);
     final selectedCategory = ref.watch(selectedCategoryProvider);
-    final categories = ['Semua', 'Akademik', 'Beasiswa', 'Kegiatan', 'Prestasi'];
+    final categories = [
+      'Semua',
+      'Akademik',
+      'Beasiswa',
+      'Kegiatan',
+      'Prestasi'
+    ];
 
     return Scaffold(
       backgroundColor: const Color(0xFFF8FAFC),
@@ -24,7 +30,7 @@ class AnnouncementListScreen extends ConsumerWidget {
           IconButton(
             icon: const Icon(Icons.refresh),
             tooltip: 'Segarkan Data',
-            onPressed: () => ref.refresh(announcementsProvider),
+            onPressed: () => ref.invalidate(announcementsProvider),
           ),
         ],
       ),
@@ -46,13 +52,18 @@ class AnnouncementListScreen extends ConsumerWidget {
                       selected: isSelected,
                       selectedColor: const Color(0xFFE0F2FE),
                       labelStyle: TextStyle(
-                        color: isSelected ? const Color(0xFF0284C7) : const Color(0xFF475569),
-                        fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                        color: isSelected
+                            ? const Color(0xFF0284C7)
+                            : const Color(0xFF475569),
+                        fontWeight:
+                            isSelected ? FontWeight.bold : FontWeight.normal,
                         fontSize: 13,
                       ),
                       onSelected: (selected) {
                         if (selected) {
-                          ref.read(selectedCategoryProvider.notifier).state = cat;
+                          ref
+                              .read(selectedCategoryProvider.notifier)
+                              .select(cat);
                         }
                       },
                     ),
@@ -88,21 +99,26 @@ class AnnouncementListScreen extends ConsumerWidget {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Icon(Icons.cloud_off_rounded, size: 64, color: Colors.redAccent),
+                      const Icon(Icons.cloud_off_rounded,
+                          size: 64, color: Colors.redAccent),
                       const SizedBox(height: 16),
                       const Text(
                         'Gagal Memuat Data',
-                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xFF0F172A)),
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF0F172A)),
                       ),
                       const SizedBox(height: 8),
                       Text(
                         err.toString().replaceAll('Exception: ', ''),
                         textAlign: TextAlign.center,
-                        style: const TextStyle(color: Color(0xFF64748B), fontSize: 13),
+                        style: const TextStyle(
+                            color: Color(0xFF64748B), fontSize: 13),
                       ),
                       const SizedBox(height: 20),
                       ElevatedButton.icon(
-                        onPressed: () => ref.refresh(announcementsProvider),
+                        onPressed: () => ref.invalidate(announcementsProvider),
                         icon: const Icon(Icons.refresh),
                         label: const Text('Coba Lagi'),
                         style: ElevatedButton.styleFrom(
@@ -123,11 +139,13 @@ class AnnouncementListScreen extends ConsumerWidget {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        const Icon(Icons.inbox_outlined, size: 64, color: Color(0xFF94A3B8)),
+                        const Icon(Icons.inbox_outlined,
+                            size: 64, color: Color(0xFF94A3B8)),
                         const SizedBox(height: 16),
                         Text(
                           'Tidak ada pengumuman untuk kategori "$selectedCategory"',
-                          style: const TextStyle(color: Color(0xFF64748B), fontSize: 14),
+                          style: const TextStyle(
+                              color: Color(0xFF64748B), fontSize: 14),
                         ),
                       ],
                     ),
@@ -137,9 +155,7 @@ class AnnouncementListScreen extends ConsumerWidget {
                 // Success State dengan Pull-to-Refresh
                 return RefreshIndicator(
                   color: const Color(0xFF0284C7),
-                  onRefresh: () async {
-                    return ref.refresh(announcementsProvider.future);
-                  },
+                  onRefresh: () => ref.refresh(announcementsProvider.future),
                   child: ListView.builder(
                     padding: const EdgeInsets.all(16),
                     itemCount: items.length,
@@ -176,7 +192,8 @@ class _AnnouncementCard extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (ctx) => AnnouncementDetailScreen(announcement: announcement),
+              builder: (ctx) =>
+                  AnnouncementDetailScreen(announcement: announcement),
             ),
           );
         },
@@ -190,7 +207,8 @@ class _AnnouncementCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                     decoration: BoxDecoration(
                       color: const Color(0xFFE0F2FE),
                       borderRadius: BorderRadius.circular(8),
@@ -206,11 +224,13 @@ class _AnnouncementCard extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      const Icon(Icons.access_time, size: 14, color: Color(0xFF94A3B8)),
+                      const Icon(Icons.access_time,
+                          size: 14, color: Color(0xFF94A3B8)),
                       const SizedBox(width: 4),
                       Text(
                         announcement.date,
-                        style: const TextStyle(color: Color(0xFF94A3B8), fontSize: 12),
+                        style: const TextStyle(
+                            color: Color(0xFF94A3B8), fontSize: 12),
                       ),
                     ],
                   ),
@@ -234,7 +254,8 @@ class _AnnouncementCard extends StatelessWidget {
               // Cuplikan isi
               Text(
                 announcement.content,
-                style: const TextStyle(fontSize: 13, color: Color(0xFF475569), height: 1.4),
+                style: const TextStyle(
+                    fontSize: 13, color: Color(0xFF475569), height: 1.4),
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),
@@ -246,15 +267,20 @@ class _AnnouncementCard extends StatelessWidget {
                 children: [
                   Text(
                     announcement.author,
-                    style: const TextStyle(fontSize: 12, color: Color(0xFF64748B), fontWeight: FontWeight.w500),
+                    style: const TextStyle(
+                        fontSize: 12,
+                        color: Color(0xFF64748B),
+                        fontWeight: FontWeight.w500),
                   ),
                   Row(
                     children: [
-                      const Icon(Icons.remove_red_eye_outlined, size: 14, color: Color(0xFF94A3B8)),
+                      const Icon(Icons.remove_red_eye_outlined,
+                          size: 14, color: Color(0xFF94A3B8)),
                       const SizedBox(width: 4),
                       Text(
                         '${announcement.readCount}',
-                        style: const TextStyle(fontSize: 12, color: Color(0xFF94A3B8)),
+                        style: const TextStyle(
+                            fontSize: 12, color: Color(0xFF94A3B8)),
                       ),
                     ],
                   ),

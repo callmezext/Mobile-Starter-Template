@@ -2,16 +2,30 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/announcement.dart';
 import '../repositories/announcement_repository.dart';
 import '../repositories/announcement_repository_impl.dart';
+import '../repositories/sample_announcement_repository.dart';
 
-// Provider untuk instance Repository
+const _useSampleData = bool.fromEnvironment('USE_SAMPLE_DATA');
+
+final useSampleDataProvider = Provider<bool>((ref) => _useSampleData);
+
+// Provider untuk instance Repository. Mode demo dapat dijalankan tanpa internet:
+// flutter run --dart-define=USE_SAMPLE_DATA=true
 final announcementRepositoryProvider = Provider<AnnouncementRepository>((ref) {
+  if (ref.watch(useSampleDataProvider)) {
+    return SampleAnnouncementRepository();
+  }
   return AnnouncementRepositoryImpl();
 });
 
-// StateProvider untuk filter kategori aktif
-final selectedCategoryProvider = StateProvider<String>((ref) {
-  return 'Semua';
-});
+class SelectedCategory extends Notifier<String> {
+  @override
+  String build() => 'Semua';
+
+  void select(String value) => state = value;
+}
+
+final selectedCategoryProvider =
+    NotifierProvider<SelectedCategory, String>(SelectedCategory.new);
 
 // FutureProvider untuk memuat daftar pengumuman dari API secara asinkron
 // Otomatis menyediakan 4-state (AsyncValue): loading, data, error
