@@ -3,6 +3,7 @@ import 'modul_01/profile_screen.dart';
 import 'modul_02/academic_dashboard_screen.dart';
 import 'modul_03/modul_03_app.dart';
 import 'modul_04/modul_04_app.dart';
+import 'modul_06/modul_06_hub.dart';
 
 void main() {
   runApp(const PoliwangiStarterApp());
@@ -42,7 +43,7 @@ class ModuleLauncherScreen extends StatefulWidget {
     3: ['TRPL-M03', 'M03-7da0c299d0f715d7'],
     4: ['TRPL-M04', 'M04-95555b7e59e15b4c'],
     5: ['TRPL-M05', 'M05-8024ea08ef7df2df'],
-    6: ['TRPL-M06', 'M06-dae86269f99a840c'],
+    6: ['TRPL-M06', 'M06-dae86269f99a840c', 'M06-F597AF2D17D70D854637'],
     7: ['TRPL-M07', 'M07-ee1993ff3d206c63'],
     8: ['TRPL-UTS', 'UTS-2026'],
     9: ['TRPL-M09', 'M09-AI'],
@@ -89,6 +90,7 @@ class _ModuleLauncherScreenState extends State<ModuleLauncherScreen> {
                 : 'Akses Dosen / Token Kelas'),
           ],
         ),
+        
         content: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -140,7 +142,7 @@ class _ModuleLauncherScreenState extends State<ModuleLauncherScreen> {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
                     content: Text(
-                        '👨‍🏫 Mode Dosen Aktif: Seluruh modul (01–16) berhasil dibuka!'),
+                        'Akses dosen aktif: Seluruh modul (01–16) terbuka.'),
                     backgroundColor: Color(0xFF059669),
                     behavior: SnackBarBehavior.floating,
                   ),
@@ -244,7 +246,7 @@ class _ModuleLauncherScreenState extends State<ModuleLauncherScreen> {
                 Expanded(
                   child: Text(
                     _unlockedModules.length >= 10
-                        ? '👨‍🏫 Mode Dosen Aktif: Seluruh 16 modul terbuka untuk ditinjau.'
+                        ? 'Akses dosen aktif: Seluruh 16 modul terbuka.'
                         : 'Perkuliahan Aktif: Minggu ke-${ModuleLauncherScreen.activeModuleUntil} (Modul 01 & 02 Terbuka). Modul lanjutan dibuka bertahap sesuai jadwal dosen.',
                     style: const TextStyle(
                         color: Color(0xFF0369A1),
@@ -298,10 +300,10 @@ class _ModuleLauncherScreenState extends State<ModuleLauncherScreen> {
           const SizedBox(height: 10),
           _buildModuleCard(
             moduleNumber: 6,
-            title: 'Authentication, Security & FCM',
-            subtitle: 'JWT lifecycle, token refresh, dan push notification',
-            builder: () => const _PlaceholderScreen(
-                moduleNumber: 6, title: 'Authentication, Security & FCM'),
+            title: 'Authentication & Session Dasar',
+            subtitle:
+                'Form Login, Sesi Memori (Fase A) & Secure Storage (Fase B)',
+            builder: () => const Modul06HubScreen(),
           ),
           const SizedBox(height: 10),
           _buildModuleCard(
