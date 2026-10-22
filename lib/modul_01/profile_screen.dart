@@ -43,9 +43,8 @@ class ProfileScreen extends StatelessWidget {
               ),
               const SizedBox(height: 16),
 
-              // TODO: Ganti dengan nama lengkap dan NIM Anda
               const Text(
-                'Nama Lengkap Mahasiswa',
+                'Guntur Afandi',
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
@@ -61,7 +60,7 @@ class ProfileScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: const Text(
-                  'NIM: 362458302000',
+                  'NIM: 362558302129',
                   style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w600,

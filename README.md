@@ -14,9 +14,9 @@ Panduan interaktif lengkap: [Portal Codelabs TRPL Poliwangi](https://codelabs-po
 
 | Informasi | Data Mahasiswa |
 |---|---|
-| **Nama Lengkap** | Mahasiswa TRPL Poliwangi *(Ganti dengan Nama Lengkap Anda)* |
-| **NIM** | 362458302000 *(Ganti dengan NIM Asli Anda)* |
-| **Kelas / Angkatan** | TRPL 5A / 2024 |
+| **Nama Lengkap** | Guntur Afandi |
+| **NIM** | 362558302129 |
+| **Kelas / Angkatan** | TRPL / 2025 |
 | **Dosen Pengampu** | Sepyan Purnama Kristanto, M.Kom. |
 
 ---
@@ -26,11 +26,12 @@ Panduan interaktif lengkap: [Portal Codelabs TRPL Poliwangi](https://codelabs-po
 Aplikasi starter memuat contoh layar setiap modul. Gunakan tabel ini sebagai peta kerja dan jalankan self-test lokal sebelum mengumpulkan repositori:
 
 | Modul | Topik & Arsitektur | Perintah Self-Test Lokal |
-|:---:|---|:---:|---|:---:|
+|:---:|---|:---:|
 | **#01** | Mobile Ecosystem, Toolchain & Profile App | `flutter test test/modul_01_test.dart` |
 | **#02** | Declarative UI, BoxConstraints & Responsive Dashboard | `flutter test test/modul_02_test.dart` |
 | **#03** | Navigation (go_router), Riverpod & 4-State KRS App | `flutter test test/modul_03_test.dart` |
 | **#04** | Networking, REST API Dio & Repository Pattern | `flutter test test/modul_04_test.dart` |
+| **#06** | Authentication, Sesi Memori & Platform Secure Storage | `flutter test test/modul_06_test.dart` |
 | **Dok** | Verifikasi identitas dan laporan | `flutter test test/verify_documentation_test.dart` |
 | **Semua** | Analisis statis dan seluruh test | `flutter analyze && flutter test` |
 
