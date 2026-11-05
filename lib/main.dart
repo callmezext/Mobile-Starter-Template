@@ -4,6 +4,7 @@ import 'modul_02/academic_dashboard_screen.dart';
 import 'modul_03/modul_03_app.dart';
 import 'modul_04/modul_04_app.dart';
 import 'modul_06/modul_06_hub.dart';
+import 'module_11/modul_11_app.dart';
 
 void main() {
   runApp(const PoliwangiStarterApp());
@@ -35,7 +36,7 @@ class ModuleLauncherScreen extends StatefulWidget {
   // Konfigurasi batas modul aktif perkuliahan (diatur oleh Dosen Pengampu)
   // Mahasiswa hanya dapat mengakses modul dengan nomor <= activeModuleUntil
   static const int activeModuleUntil =
-      2; // Saat ini: Minggu ke-2 (Modul 01 & 02 terbuka)
+      11; // Modul 11 (Performance Optimization) aktif dan terbuka
 
   // Token akses kelas untuk membuka modul saat praktikum di lab atau izin khusus
   static const Map<int, List<String>> modulePasscodes = {
@@ -44,7 +45,7 @@ class ModuleLauncherScreen extends StatefulWidget {
     4: ['TRPL-M04', 'M04-95555b7e59e15b4c'],
     5: ['TRPL-M05', 'M05-8024ea08ef7df2df'],
     6: ['TRPL-M06', 'M06-dae86269f99a840c', 'M06-F597AF2D17D70D854637'],
-    7: ['TRPL-M07', 'M07-ee1993ff3d206c63'],
+    7: ['TRPL-M07', 'M07-ee1993ff3d206c63', 'M07-DC4D2C19032EDA98D79D'],
     8: ['TRPL-UTS', 'UTS-2026'],
     9: ['TRPL-M09', 'M09-AI'],
     10: ['TRPL-M10', 'M10-GEMINI'],
@@ -351,8 +352,7 @@ class _ModuleLauncherScreenState extends State<ModuleLauncherScreen> {
             moduleNumber: 11,
             title: 'Performance Optimization',
             subtitle: 'DevTools Flame Graph, deteksi jank, dan repainting',
-            builder: () => const _PlaceholderScreen(
-                moduleNumber: 11, title: 'Performance Optimization'),
+            builder: () => const LayarDaftarTugasPerforma(),
           ),
           const SizedBox(height: 10),
           _buildModuleCard(

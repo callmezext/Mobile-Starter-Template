@@ -32,6 +32,7 @@ Aplikasi starter memuat contoh layar setiap modul. Gunakan tabel ini sebagai pet
 | **#03** | Navigation (go_router), Riverpod & 4-State KRS App | `flutter test test/modul_03_test.dart` |
 | **#04** | Networking, REST API Dio & Repository Pattern | `flutter test test/modul_04_test.dart` |
 | **#06** | Authentication, Sesi Memori & Platform Secure Storage | `flutter test test/modul_06_test.dart` |
+| **#11** | Optimasi Performa, ListView.builder, RepaintBoundary & Filter | `flutter test test/modul_11_test.dart` |
 | **Dok** | Verifikasi identitas dan laporan | `flutter test test/verify_documentation_test.dart` |
 | **Semua** | Analisis statis dan seluruh test | `flutter analyze && flutter test` |
 
@@ -61,6 +62,7 @@ flutter analyze
 # 2. Jalankan unit & widget test modul yang sedang Anda kerjakan
 flutter test test/modul_01_test.dart
 flutter test test/modul_02_test.dart
+flutter test test/modul_11_test.dart
 
 # 3. Jalankan seluruh test suite sekaligus
 flutter test
@@ -76,6 +78,7 @@ Mahasiswa **wajib** menggunakan format pesan commit terstruktur:
 - `fix(w02): resolve renderflex overflow in course card`
 - `feat(w03): setup gorouter declarative routes and krs notifier`
 - `feat(w04): integrate dio remote datasource and repository pattern`
+- `feat(w11): implement lazy listview builder, repaintboundary and course filter`
 - `docs(readme): update student identity and ai reflection table`
 
 ---
@@ -88,6 +91,7 @@ Sesuai prinsip **Responsible AI** di lingkungan akademik Politeknik Negeri Banyu
 |---|---|---|---|
 | *Contoh: lib/modul_02/widgets/course_card.dart* | *GitHub Copilot* | *Saran styling Elevation & BoxDecoration* | *Memeriksa contrast ratio WCAG AA dan padding antarmuka* |
 | *Contoh: lib/modul_04/models/announcement.dart* | *Gemini Code Assist* | *Pengecekan null-safety pada fromJson* | *Menambahkan fallback default string kosong untuk mencegah error runtime* |
+| lib/module_11/modul_11_app.dart | GitHub Copilot | Optimasi ListView.builder dan RepaintBoundary | Verifikasi unit/widget test dan profil frame rendering |
 
 ---
 
